@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#41414C" />
+    <link rel="shortcut icon" href="images/favicon.png" type="image/png" />
+    <title>Jobinho | Topa Job novo?</title>
+
+    <link rel="stylesheet" href="/styles/main.css" />
+    <link rel="stylesheet" href="/styles/partials/page-header.css" />
+    <link rel="stylesheet" href="/styles/partials/page-footer.css" />
+    <link rel="stylesheet" href="/styles/partials/cards.css" />
+    <link rel="stylesheet" href="/styles/partials/buttons.css" />
+    <link rel="stylesheet" href="/styles/partials/modal.css" />
+    <link rel="stylesheet" href="/styles/partials/animations.css" />
+    <link rel="stylesheet" href="/styles/pages/clock-modes.css" />
+    <link rel="stylesheet" href="/styles/pages/index.css" />
+
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <script src="scripts/index.js" defer type="module"></script>
+  </head>
+  <body id="page-index">
+    <header class="page-header">
+      <div class="container">
+        <section id="top" class="animate-right">
+          <h2 class="sr-only">Homepage</h2>
+          <img id="logo" src="/images/logo.svg" alt="Logo" />
+          <span id="notification">
+            <img src="/images/alert-octagon.svg" alt="Alerta" />
+            <% if( freeHours <= 0){ %> Você tem não horas livres. 
+              <% }else{ %> 
+                Você tem <%= freeHours %> horas livres no dia.
+                <% } %>  
+            
+          </span>
+          <a href="/profile" class="avatar-profile">
+            <p><%= profile.name %>  <span>Ver perfil</span></p>
+            <img src="<%= profile.avatar %>" alt="<%= profile.name %>" />
+          </a>
+        </section>
+
+        <div class="separator"></div>
+
+        <section id="summary" class="animate-right delay-1">
+          <h2 class="sr-only">Sumário</h2>
+
+          <div class="info">
+            <div class="total">
+              <strong><%= statusCount.total %></strong>
+              Projetos ao total
+            </div>
+            <div class="in-progress">
+              <strong><%= statusCount.progress %></strong>
+              Em andamento
+            </div>
+            <div class="finished">
+              <strong><%= statusCount.done %></strong>
+              Encerrados
+            </div>
+          </div>
+          <div class="button-ytb button">
+            Vai uma música?
+          </div>
+          </a>
+          <a class="button orange" href="/job">
+            <span>
+              <img src="/images/plus-24.svg" alt="Novo Job" /> 
+            </span>
+            Adicionar novo job
+          </a>
+        </section>
+      </div>
+    </header>
+
+    <div class="container">
+      <main class="animate-right delay-2">
+        <h1 class="sr-only">Trabalhos</h1>
+
+        <div class="cards">
+          <% jobs.forEach((job) => { %>
+
+            <div class="card <%= job.status %>" data-id="<%= job.id %>">
+            <div class="id column"><%= job.id %></div>
+            <div class="name column">
+              <%= job.name %>
+            </div>
+            <div class="deadline column">
+              <span>Prazo</span>
+              <p><%= job.remaining > 0 ? `${job.remaining} dias para a entrega` : 'Encerrado' %> </p>
+            </div>
+            <div class="amount column">
+              <span>Valor</span>
+              <p>R$ <%= job.budget.toFixed(2).replace('.', ',') %></p>
+            </div>
+            <div class="status badge column">
+              <%= job.status === 'done' ? 'Encerrado' : 'Em andamento' %> 
+            </div>
+            <div class="actions column flex">
+              <p class="sr-only">Ações</p>
+              <a 
+                href="/job/<%= job.id %> " 
+                class="button white edit" 
+                title="Editar Job">
+                <img src="/images/edit-24.svg" alt="Editar Job" />
+              </a>
+              <button class="delete button white" title="Excluir Job">
+                <img src="/images/trash-24.svg" alt="Excluir Job" />
+              </button>
+            </div>
+            </div>
+          <% }) %> 
+        <!-- end cards -->
+      </main>
+    </div>
+    <!-- end container -->
+    <%- include('parts/page-footer', {jobs: 'selected', clock: '', about: ''} ) %>
+
+    <div id="modal-wrapper" class="modal-wrapper">
+      <div class="modal">
+        <img src="/images/trash-48.svg" alt="Excluir Job" title="Excluir Job" />
+        <h3>Excluir Job</h3>
+        <p>Quer mesmo excluir esse job? <br/>
+        Ele será apagado para sempre.  
+        <p>
+        <footer>
+          <a 
+            class="button gray cancel-button" 
+            href="#">Cancelar</a>
+          <button
+            class="button red"
+            type="submit"
+            form="delete-job">Excluir Job</button>
+        </footer>
+      </div>
+      <form 
+        method="post" 
+        action="/job/delete" 
+        id="delete-job"></form>
+    </div>
+<!-- end modal-wrapper -->
+
+    <div id="music-modal" class="modal-wrapper">
+      <div class="modal">
+        <ul>
+          <h3>Hoje vamos de...</h3>
+          <a href="https://music.youtube.com/watch?v=4bwUBE6Xg4k&list=PLvYox0xue0MXLEX90-aV4YGpjMYXKBGKc" target="_blank"><li>Funk (consciente)</li></a>
+          <a href="https://music.youtube.com/watch?v=y3PKcVd7UtM&list=RDCLAK5uy_kb7EBi6y3GrtJri4_ZH56Ms786DFEimbM" target="_blank"><li>lo-fi</li></a>
+          <a href="https://music.youtube.com/watch?v=oJ_0QSHvvyk&list=RDCLAK5uy_lIvK11Uic1aglAcuCW1syYeMSWxkJCPug" target="_blank"><li>MPB</li></a>
+          <a href="https://music.youtube.com/watch?v=NVk5AO9lRXQ&list=RDCLAK5uy_lSgjRq4DXMk09_I_zdrvXSDvgpi0vTg9M" target="_blank"><li>Pagode</li></a>
+          <a href="https://music.youtube.com/watch?v=36tggrpRoTI&list=PL1jMjCxDqxLvomtUMbqa_4pAjMmzpfgUy" target="_blank"><li>Pop (internacional)</li></a>
+          <a href="https://music.youtube.com/watch?v=YK9zqVREfkg&list=PLQEUs9xtYT6o8QYY-NYg5hRuX-8fLrcy3" target="_blank"><li>Rap / Trap</li></a>
+          <a href="https://music.youtube.com/watch?v=CxKWTzr-k6s&list=RDCLAK5uy_m6CpDBXFeoZ4qsioHnulfHwPhnpBP2cb0" target="_blank"><li>Rock</li></a>
+          <a href="https://music.youtube.com/watch?v=XUeoFVSfsXg&list=RDCLAK5uy_kNueKS0Wo4zrtTFdYSa571cAP4a6z8GcA" target="_blank"><li>Sertanejo</li></a>
+        </ul>
+        <footer><a 
+          class="button gray cancel-button" 
+          href="#">Cancelar</a>
+        </footer>
+    </div>
+    </div>
+  </body>
+</html>

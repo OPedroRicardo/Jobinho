@@ -1,0 +1,31 @@
+.nav {
+    width: 100%;
+    position: fixed;
+    bottom: 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    background: var(--color-hairline-in-dark);
+    height: fit-content;
+}
+
+.nav img {
+    width: 100%;
+    filter: grayscale(1) brightness(2);
+    transition: 0.5s ease-in;
+    margin: 1rem 0;
+}
+
+.nav a img:hover {
+    filter: grayscale(0);
+    transition: 0.5s ease-out;
+}
+
+.selected {
+    border-bottom: 3px solid var(--color-secondary);
+    
+}
+
+.selected img {
+    filter: grayscale(0);
+}

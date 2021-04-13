@@ -1,0 +1,64 @@
+/* header */
+.about-header {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center
+}
+
+.credits {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+}
+
+.credits a {
+    color: white;
+    text-decoration: none;
+    margin-left: 0.5rem;
+}
+
+/* profile */
+.about-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 3rem;
+}
+
+.my-profile {
+    font-size: 1.5rem;
+    font-weight: 400;
+}
+
+.my-profile ul {
+    list-style: none;
+}
+
+.my-profile .bio {
+    color: var(--color-primary);
+}
+
+.my-profile .name {
+    font-weight: 700;
+}
+
+.social {
+    width: 90%;
+    display: flex;
+    justify-content: space-between;
+    margin: 1rem 0;
+}
+
+.social a {
+    transition: 0.3s ease-in-out;
+}
+
+.social a:hover {
+    filter: brightness(0.7);
+}
+
+.my-profile path{
+    box-sizing: border-box;
+}

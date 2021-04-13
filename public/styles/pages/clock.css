@@ -1,0 +1,143 @@
+/* geral */
+.clock-main {
+    display: flex;
+    flex-direction: column;
+    align-items: center
+}
+
+/* clock-modes */
+.clock-modes-container {
+    position: relative;
+    color: var(--color-card-title);
+    width: 80%;
+    margin-top: 1rem;
+
+    border-radius: 0.25rem;
+    padding: 0 3rem;
+  
+    font-weight: 600;
+    font-size: 0.875rem; /* 14px of 16px root*/
+    line-height: 1.625rem; /* 26px of 16px root*/
+  
+    background-color: var(--color-text);
+}
+
+.clock-modes-container ul {
+    display: flex;
+    list-style: none;
+    align-items: center;
+    justify-content: space-between;
+    height: 100%;
+}
+
+.clock-modes-container ul a {
+    height: 100%;
+    text-decoration: none;
+    padding: .5rem 0;
+    color: var(--color-card-title);
+}
+
+.clock-modes-container .disabled {
+    color: #41414C40;
+}
+
+.clock-modes-container ul a:hover {
+    border-bottom: 2px solid var(--color-secondary);
+    transition: ease-in-out .2s;
+}
+
+.clock-modes-container .selected {
+    border-bottom: 2px solid var(--color-secondary);
+
+}
+
+/* pomo-modes */
+.pomo-modes {
+    margin: 2rem 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 60%;
+}
+
+.pomo-modes h4 {
+    color: var(--color-card-title);
+    opacity: 0.5;
+}
+
+.pomo-modes .selected {
+    opacity: 1;
+}
+
+.pomo-modes button:hover {
+    cursor: pointer;
+    opacity: 1;
+    border-bottom: 1px solid var(--color-secondary);
+    transition: 0.3s ease-in-out;
+}
+
+/* clock */
+.clock {
+    margin: 0 3rem 2rem;
+    font-family: 'IBM Plex Sans';
+    font-weight: 700;
+    font-size: 9rem;
+    text-align: center;
+    color: var(--color-card-title);
+
+
+    display: grid;
+    grid-template-columns: 2fr 1fr 0.5fr 1fr 2fr;
+    
+}
+
+.timer.hours {
+    width: 100%;
+    padding: .5rem;
+    border-radius: .5rem;
+    background: var(--color-text);
+    position: relative;
+    
+    display: inline-block;
+    grid-column-start: 2;
+    grid-column-end: 3;
+    justify-self: stretch;
+}
+
+.timer.separator {
+    position: relative;
+    display: inline-block;
+    grid-column-start: 3;
+    grid-column-end: 4;
+    justify-self: stretch;
+}
+
+.timer.minutes-seconds {
+    display: flex;
+    justify-content: space around;
+    align-items: flex-end;
+    
+    position: relative;
+    grid-column-start: 4;
+    grid-column-end: 5;
+    justify-self: stretch;
+}
+
+.timer.minutes-seconds .minutes {
+    width: fit-content;
+    padding: .5rem;
+    border-radius: .5rem;
+    background: var(--color-text);
+
+    margin-right: 0.5rem;
+}
+
+.timer.minutes-seconds .seconds {
+    width: fit-content;
+    height: fit-content;
+
+    padding: .5rem;
+    border-radius: .5rem;
+    background: var(--color-text);
+    font-size: 5rem;
+}
