@@ -1,4 +1,8 @@
-let permission = await Notification.requestPermission()
+if (Notification.permission !== 'denied') {
+    // Pede ao usuário para utilizar a Notificação Desktop
+    await Notification.requestPermission();
+}
+
 const start = new Audio("./sounds/start.mp3")
 
 const hours = document.querySelector(".hours")
@@ -16,12 +20,21 @@ let timeData = {
 let time = 0
 let currentTime = time // variável que vai ser diminuida pra fazer o countDown
 
-const greeting = () =>
-  new Notification("Você concluiu um cíclo!", {
+// notification.js
+function notification(){
+  if (Notification.permission === 'granted') {
+    new Notification ("Você concluiu um cíclo!", {
     header: "Parabéeeeens!!!",
     body: "Você concuiu um ciclo ^-^",
     icon: "../images/favicon.png",
   })
+}
+}
+
+function changeSelected(toShow){
+  document.querySelectorAll('.pomo-modes button h4').forEach(element => element.classList.remove('selected'))
+  toShow.classList.add('selected')
+}
 
 const clock = {
   toSeconds() {
@@ -35,7 +48,8 @@ const clock = {
       timeData.minutes = 0
       timeData.seconds = 5
       clock.toSeconds()
-      console.log(timeData.cicle)
+      changeSelected(document.querySelector('.work'))
+      //console.log(timeData.cicle)
       return
     }
 
@@ -44,7 +58,8 @@ const clock = {
       timeData.minutes = 0
       timeData.seconds = 3
       clock.toSeconds()
-      console.log(timeData.cicle)
+      changeSelected(document.querySelector('.short-break'))
+      //console.log(timeData.cicle)
       return
     }
 
@@ -52,7 +67,8 @@ const clock = {
     timeData.minutes = 0
     timeData.seconds = 6
     clock.toSeconds()
-    console.log(timeData.cicle)
+    changeSelected(document.querySelector('.long-break'))
+    //console.log(timeData.cicle)
   },
 
   format() {
@@ -78,9 +94,9 @@ const clock = {
     function countDown(){
       --currentTime
       clock.display()
-      console.log(
+      /* console.log(
         timeData.hours + ":" + timeData.minutes + ":" + timeData.seconds
-      )
+      ) */
       if(currentTime <= 0) {
       changeCicle()
       }
@@ -96,11 +112,19 @@ const clock = {
       if(timeData.cicle == 8){
         timeData.cicle = 0
       }
+
+      if (Notification.permission === 'granted') {
+        new Notification ("Você concluiu um cíclo!", {
+        header: "Parabéeeeens!!!",
+        body: "Você concuiu um ciclo ^-^",
+        icon: "../images/favicon.png",
+      })
+      }
+
       stop()
       timeData.cicle++
       clock.setTime()
       clock.display()
-      greeting()
       start.play()
       document.getElementById('pause').classList.remove('visible', 'animate-right')
       document.getElementById('start').classList.add('visible', 'animate-right')
