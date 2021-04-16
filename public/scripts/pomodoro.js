@@ -1,4 +1,7 @@
-let permission = await Notification.requestPermission()
+if( Notification.permission !== 'denied'){
+  await Notification.requestPermission()
+}
+
 const start = new Audio("./sounds/start.mp3")
 
 const hours = document.querySelector(".hours")
@@ -16,7 +19,7 @@ let timeData = {
 let time = 0
 let currentTime = time // variável que vai ser diminuida pra fazer o countDown
 
-const greeting = () =>
+const alert = () =>
   new Notification("Você concluiu um cíclo!", {
     header: "Parabéeeeens!!!",
     body: "Você concuiu um ciclo ^-^",
@@ -35,7 +38,9 @@ const clock = {
       timeData.minutes = 0
       timeData.seconds = 5
       clock.toSeconds()
-      console.log(timeData.cicle)
+      document.querySelector('#work').classList.add('selected')
+      document.querySelector('#short-break').classList.remove('selected')
+      document.querySelector('#long-break').classList.remove('selected')
       return
     }
 
@@ -44,7 +49,9 @@ const clock = {
       timeData.minutes = 0
       timeData.seconds = 3
       clock.toSeconds()
-      console.log(timeData.cicle)
+      document.querySelector('#work').classList.remove('selected')
+      document.querySelector('#short-break').classList.add('selected')
+      document.querySelector('#long-break').classList.remove('selected')
       return
     }
 
@@ -52,7 +59,9 @@ const clock = {
     timeData.minutes = 0
     timeData.seconds = 6
     clock.toSeconds()
-    console.log(timeData.cicle)
+    document.querySelector('#work').classList.remove('selected')
+    document.querySelector('#short-break').classList.remove('selected')
+    document.querySelector('#long-break').classList.add('selected')
   },
 
   format() {
@@ -78,9 +87,9 @@ const clock = {
     function countDown(){
       --currentTime
       clock.display()
-      console.log(
+      /* console.log(
         timeData.hours + ":" + timeData.minutes + ":" + timeData.seconds
-      )
+      ) */
       if(currentTime <= 0) {
       changeCicle()
       }
@@ -100,7 +109,7 @@ const clock = {
       timeData.cicle++
       clock.setTime()
       clock.display()
-      greeting()
+      alert()
       start.play()
       document.getElementById('pause').classList.remove('visible', 'animate-right')
       document.getElementById('start').classList.add('visible', 'animate-right')
@@ -115,6 +124,7 @@ const clock = {
 
   reset() {
     timeData.cicle = 1
+    clock.setTime()
     clock.display()
   },
 }
