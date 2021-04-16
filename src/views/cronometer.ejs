@@ -25,7 +25,7 @@
     rel="stylesheet" />
 
   <script src="scripts/clock-index.js"></script>
-  <script src="scripts/pomodoro.js"></script>
+  <script src="scripts/cronometer.js"></script>
 </head>
 
 <body class="clock-body">
@@ -43,60 +43,35 @@
   </header>
   <!-- fim do header -->
   <main class="clock-main">
-    <%- include('parts/clock-modes', { pomodoro: 'selected', cronometer: '' } ) %>
-    <ul class="pomo-modes">
-      <button><h4 class="work selected">Trabalho</h4></button>
-      <button><h4 class="short-break">Relaxadinha</h4></button>
-      <button><h4 class="long-break">Descanço</h4></button>
-    </ul>
+    <%- include('parts/clock-modes', { pomodoro: '', cronometer: 'selected' } ) %>
       <div class="clock animate-right">
         <span class="timer hours">00</span>
         <span class="timer-separator">:</span>
         <span class="timer minutes-seconds">
-          <span class="timer minutes">25</span>
+          <span class="timer minutes">00</span>
           <span class="seconds">00</span>
         </span>
       </div>
       <section class="button-section">
-        <div id="start" class="clock-buttons visible animate-right">
+        <div class="start clock-buttons animate-right visible">
           <a class="button button-positive">
             Iniciar
-          </a><!-- 
-          <a class="button button-define">
-            Definir tempo
-          </a> -->
+          </a>
         </div>
-        <div id="pause" class="animate-right clock-buttons">
+        <div class="pause clock-buttons animate-right">
           <a class="button button-pause">
             Pausar
           </a>
         </div>
-        <div id="reset" class="animate-right clock-buttons">
+        <div  class="reset clock-buttons animate-right">
           <a class="button button-positive">
             Retomar
           </a>
-          <a class="button button-reset" id="work-reset">
+          <a class="button button-reset">
             Resetar
           </a>
         </div>
       </section>
-      <!-- <section class="modal-background">
-        <div class="clock-modal">
-          <h1 id="define">Defina um horário</h1>
-          <form id="form-clock" method="post" action="/clock">
-            <label for="time">(HH : MM : SS)</label>
-            <input id="time" required id="time" type="time" aria-labelledby="define" step="1" />
-            <span>
-              <a class="button button-cancel">
-                Cancelar
-              </a>
-              <a type="submit" form="form-clock" title="Definir Tempo" class="button button-positive">
-                Confirmar
-              </a>
-            </span>
-          </form>
-        </div>
-      </section> -->
   </main>
   <!-- fim do body -->
 
