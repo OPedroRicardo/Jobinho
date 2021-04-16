@@ -12,8 +12,8 @@ let timeData = {
   cicle: 1,
   workCicle: 0,
   hours: 0,
-  minutes: 0,
-  seconds: 5,
+  minutes: 25,
+  seconds: 0,
 }
 
 let time = 0
@@ -35,8 +35,8 @@ const clock = {
   setTime() {
     if(timeData.cicle != 8 && timeData.cicle % 2 == 1) {
       timeData.hours = 0
-      timeData.minutes = 0
-      timeData.seconds = 5
+      timeData.minutes = 25
+      timeData.seconds = 0
       clock.toSeconds()
       document.querySelector('#work').classList.add('selected')
       document.querySelector('#short-break').classList.remove('selected')
@@ -46,8 +46,8 @@ const clock = {
 
     if(timeData.cicle != 8 && timeData.cicle % 2 == 0) {
       timeData.hours = 0
-      timeData.minutes = 0
-      timeData.seconds = 3
+      timeData.minutes = 5
+      timeData.seconds = 0
       clock.toSeconds()
       document.querySelector('#work').classList.remove('selected')
       document.querySelector('#short-break').classList.add('selected')
@@ -56,8 +56,8 @@ const clock = {
     }
 
     timeData.hours = 0
-    timeData.minutes = 0
-    timeData.seconds = 6
+    timeData.minutes = 15
+    timeData.seconds = 0
     clock.toSeconds()
     document.querySelector('#work').classList.remove('selected')
     document.querySelector('#short-break').classList.remove('selected')
