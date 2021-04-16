@@ -1,8 +1,9 @@
-if( Notification.permission !== 'denied'){
-  await Notification.requestPermission()
+if (Notification.permission !== 'denied') {
+    // Pede ao usuário para utilizar a Notificação Desktop
+    Notification.requestPermission()
 }
 
-const start = new Audio("./sounds/start.mp3")
+const audio = new Audio("./sounds/start.mp3")
 
 const hours = document.querySelector(".hours")
 const minutes = document.querySelector(".minutes")
@@ -10,7 +11,6 @@ const seconds = document.querySelector(".seconds")
 
 let timeData = {
   cicle: 1,
-  workCicle: 0,
   hours: 0,
   minutes: 25,
   seconds: 0,
@@ -19,12 +19,21 @@ let timeData = {
 let time = 0
 let currentTime = time // variável que vai ser diminuida pra fazer o countDown
 
-const alert = () =>
-  new Notification("Você concluiu um cíclo!", {
+// notification.js
+function notification(){
+  if (Notification.permission === 'granted') {
+    new Notification ("Você concluiu um cíclo!", {
     header: "Parabéeeeens!!!",
     body: "Você concuiu um ciclo ^-^",
     icon: "../images/favicon.png",
   })
+}
+}
+
+function changeSelected(toShow){
+  document.querySelectorAll('.pomo-modes button h4').forEach(element => element.classList.remove('selected'))
+  toShow.classList.add('selected')
+}
 
 const clock = {
   toSeconds() {
@@ -38,9 +47,8 @@ const clock = {
       timeData.minutes = 25
       timeData.seconds = 0
       clock.toSeconds()
-      document.querySelector('#work').classList.add('selected')
-      document.querySelector('#short-break').classList.remove('selected')
-      document.querySelector('#long-break').classList.remove('selected')
+      changeSelected(document.querySelector('.work'))
+      //console.log(timeData.cicle)
       return
     }
 
@@ -49,9 +57,8 @@ const clock = {
       timeData.minutes = 5
       timeData.seconds = 0
       clock.toSeconds()
-      document.querySelector('#work').classList.remove('selected')
-      document.querySelector('#short-break').classList.add('selected')
-      document.querySelector('#long-break').classList.remove('selected')
+      changeSelected(document.querySelector('.short-break'))
+      //console.log(timeData.cicle)
       return
     }
 
@@ -59,9 +66,8 @@ const clock = {
     timeData.minutes = 15
     timeData.seconds = 0
     clock.toSeconds()
-    document.querySelector('#work').classList.remove('selected')
-    document.querySelector('#short-break').classList.remove('selected')
-    document.querySelector('#long-break').classList.add('selected')
+    changeSelected(document.querySelector('.long-break'))
+    //console.log(timeData.cicle)
   },
 
   format() {
@@ -105,14 +111,22 @@ const clock = {
       if(timeData.cicle == 8){
         timeData.cicle = 0
       }
+
+      if (Notification.permission === 'granted') {
+        new Notification ("Você concluiu um cíclo!", {
+        header: "Parabéeeeens!!!",
+        body: "Você concuiu um ciclo ^-^",
+        icon: "../images/favicon.png",
+      })
+      }
+
       stop()
       timeData.cicle++
       clock.setTime()
       clock.display()
-      alert()
-      start.play()
-      document.getElementById('pause').classList.remove('visible', 'animate-right')
-      document.getElementById('start').classList.add('visible', 'animate-right')
+      audio.play()
+      document.querySelector('.pause').classList.remove('visible', 'animate-right')
+      document.querySelector('.start').classList.add('visible', 'animate-right')
     }
     
     stopButton.addEventListener("click", stop)
@@ -129,13 +143,13 @@ const clock = {
   },
 }
 
-const startButton = document.querySelector("#start .button-positive")
-const stopButton = document.querySelector("#pause")
-const resumeButton = document.querySelector("#reset .button-positive")
-const resetWorkButton = document.querySelector("#work-reset")
+const started = document.querySelector("#start .button-positive")
+const stoped = document.querySelector("#pause .button-pause")
+const resumed = document.querySelector("#reset .button-positive")
+const resetedWork = document.querySelector("#work-reset")
 
-startButton.addEventListener("click", clock.start)
-resumeButton.addEventListener("click", clock.interval)
-resetWorkButton.addEventListener("click", function () {
+started.addEventListener("click", clock.start)
+resumed.addEventListener("click", clock.interval)
+resetedWork.addEventListener("click", function () {
   clock.reset()
 })
