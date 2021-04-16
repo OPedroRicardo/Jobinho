@@ -1,5 +1,5 @@
 module.exports = {
     show(req, res){
-        return res.render("clock")
+        return res.render("cronometer")
     },
 }
